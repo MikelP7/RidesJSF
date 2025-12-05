@@ -1,0 +1,6 @@
+modelo\bean\MenuBean.class
+modelo\bean\QueryRidesBean.class
+modelo\dominio\Ride.class
+modelo\JPAUtil.class
+principal\CrearDrivers.class
+modelo\dominio\Driver.class

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd" version="3.0">
+
+<!-- Navigation rule para ir de Menu a Create Rides -->
+<navigation-rule>
+	<display-name>CreateRides.xhtml</display-name>
+	<from-view-id>/Menu.xhtml</from-view-id>
+	<navigation-case>
+		<from-outcome>cr</from-outcome>
+		<to-view-id>/CreateRides.xhtml</to-view-id>
+	</navigation-case>
+</navigation-rule>
+
+
+<!-- Navigation rule para ir de Menu a Query Rides -->
+<navigation-rule>
+	<display-name>QueryRides.xhtml</display-name>
+	<from-view-id>/Menu.xhtml</from-view-id>
+	<navigation-case>
+		<from-outcome>qr</from-outcome>
+		<to-view-id>/QueryRides.xhtml</to-view-id>
+	</navigation-case>
+</navigation-rule>
+
+<!-- Navigation rule para ir de Query Rides a Menu -->
+<navigation-rule>
+	<display-name>Menu.xhtml</display-name>
+	<from-view-id>/QueryRides.xhtml</from-view-id>
+	<navigation-case>
+		<from-outcome>me</from-outcome>
+		<to-view-id>/Menu.xhtml</to-view-id>
+	</navigation-case>
+</navigation-rule>
+
+</faces-config>
+

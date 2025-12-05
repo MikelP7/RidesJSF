@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://xmlns.jcp.org/jsf/html"
+xmlns:f="http://xmlns.jcp.org/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+
+	<f:view>
+	<h:head><title>RidesJSF</title></h:head>
+	<h:body>
+		<h:form>
+			<h3>Create Rides</h3>
+			
+			<h:commandButton value="Back to menu" action="#{createRides.moveToMenu}" />
+			
+			<h:panelGrid columns="2" cellpadding="6" cellspacing="6" style="border-collapse:separate;">
+
+				<h:outputText value="Depart City:" />
+				<h:inputText id="deparCtity" value="#{createRide.departCity}" />
+		
+				<h:outputText value="Arrival City:" />
+				<h:inputText id="arrivalCity" value="#{createRide.arrivalCity}" />
+				
+				<h:outputText value="Number Places:" />
+				<h:inputText id="nPlaces" value="#{createRide.arrivalCity}" />
+		
+				<h:outputText value="Price:" />
+				<h:inputText id="Price" value="#{createRide.price}" />
+		
+				<h:outputText value="Ride date:" />
+				<p:calendar id="fecha" value="#{createRides.fecha}" navigator="false" pattern="dd/MM/yyyy" mode="inline"/>
+		
+				<h:commandButton value="Create Ride"/>
+	
+		    </h:panelGrid>
+		
+		</h:form>
+	</h:body>
+	</f:view>
+</html>

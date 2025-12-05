@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://xmlns.jcp.org/jsf/html"
+xmlns:f="http://xmlns.jcp.org/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+	<f:view>
+	<h:head><title>RidesJSF</title></h:head>
+	<h:outputStylesheet library="css" name="style.css" />
+	<h:body>
+		<h:form id="form">
+			<h3>Query Rides</h3>
+			
+			<h:commandButton value="Back to menu" action="#{queryRides.moveToMenu}" />
+			
+			<h:panelGrid columns="2" cellpadding="6" cellspacing="6" style="border-collapse:separate;">
+
+				<h:outputText value="Depart City:" />
+				<h:selectOneMenu id="DepartCity" value="#{queryRides.departCity}">
+					<f:selectItems value="#{queryRides.departCities}" />
+					<f:ajax listener="#{queryRides.handleDepartCitySelection}" render="ArrivalCity" />
+				</h:selectOneMenu>
+		
+				<h:outputText value="Arrival City:" />
+				<h:selectOneMenu id="ArrivalCity" value="#{queryRides.arrivalCity}">
+					<f:selectItems value="#{queryRides.arrivalCities}" />
+				</h:selectOneMenu>
+		
+		
+				<h:outputText value="Ride date:" />
+				<p:calendar id="fecha" value="#{queryRides.fecha}" navigator="false" pattern="dd/MM/yyyy" mode="inline"/>
+		
+				<h:commandButton value="Query Rides" action="#{queryRides.searchAvailableRides}" />
+	
+		    </h:panelGrid>
+		    
+		    <h:dataTable id="dataTable" value="#{queryRides.availableRides}" var="ride" border="1" rendered="#{not empty queryRides.availableRides}">
+					<h:column>
+						<f:facet name="header">From</f:facet>
+		                #{ride.from}
+		            </h:column>
+					<h:column>
+						<f:facet name="header">To</f:facet>
+		                #{ride.to}
+		            </h:column>
+					<h:column>
+						<f:facet name="header">nPlaces</f:facet>
+		                #{ride.nPlaces}
+		            </h:column>
+		            <h:column>
+						<f:facet name="header">Price</f:facet>
+		                #{ride.price}€
+		            </h:column>
+		            <h:column>
+						<f:facet name="header">Driver Name</f:facet>
+		                #{ride.driver.name}
+		            </h:column>
+				</h:dataTable>
+				
+		</h:form>
+	</h:body>
+	</f:view>
+</html>
