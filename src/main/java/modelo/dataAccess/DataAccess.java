@@ -92,37 +92,56 @@ public class DataAccess  {
 	 * @param driverEmail to which ride is added
 	 * 
 	 * @return the created ride, or null, or an exception
-	 * @throws RideMustBeLaterThanTodayException if the ride date is before today 
- 	 * @throws RideAlreadyExistException if the same ride already exists for the driver
 	 */
 	public Ride createRide(String from, String to, Date date, int nPlaces, float price, String driverEmail) throws  RideAlreadyExistException, RideMustBeLaterThanTodayException {
 		System.out.println(">> DataAccess: createRide=> from= "+from+" to= "+to+" driver="+driverEmail+" date "+date);
+		EntityManager em = JPAUtil.getEntityManager();
 		try {
 			if(new Date().compareTo(date)>0) {
 				throw new RideMustBeLaterThanTodayException();
 			}
-			db.getTransaction().begin();
+			em.getTransaction().begin();
 			
-			Driver driver = db.find(Driver.class, driverEmail);
+			Driver driver = em.find(Driver.class, driverEmail);
 			if (driver.doesRideExists(from, to, date)) {
-				db.getTransaction().commit();
-				throw new RideAlreadyExistException(ResourceBundle.getBundle("Etiquetas").getString("DataAccess.RideAlreadyExist"));
+				em.getTransaction().commit();
+				throw new RideAlreadyExistException();
 			}
-			System.out.println("crea addRide");
-			Ride ride = driver.addRide(from, to, date, nPlaces, price);
-			//next instruction can be obviated
-			db.persist(driver); 
-			db.getTransaction().commit();
+			
+			Ride ride = new Ride();
+			
+			ride.setFrom(from);
+			ride.setTo(to);
+			ride.setBetMinimum(nPlaces);
+			ride.setDate(date);
+			ride.setPrice(price);
+			
+			List<Integer> result = em.createQuery("SELECT MAX(r.rideNumber) FROM Ride r", Integer.class).getResultList();
+			
+			if(!result.isEmpty()) {
+				ride.setRideNumber(result.get(0)+1);
+			}
+			else {
+				ride.setRideNumber(1);
+			}
+			
+			ride.setDriver(driver);
+
+			em.persist(ride);
+			em.persist(driver); 
+			em.getTransaction().commit();
 
 			return ride;
-		} catch (NullPointerException e) {
-			// TODO Auto-generated catch block
-			db.getTransaction().commit();
-			return null;
+		} 
+		catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			throw e;
+		} 
+		finally {
+			em.close();
 		}
-		
-		
-		
 	}
 	
 	/**
@@ -183,6 +202,7 @@ public class DataAccess  {
 	 * @return collection of rides
 	 */
 	public List<Date> getThisMonthDatesWithRides(String from, String to, Date date) {
+		EntityManager em = JPAUtil.getEntityManager();
 		System.out.println(">> DataAccess: getEventsMonth");
 		List<Date> res = new ArrayList<Date>();	
 		
@@ -190,7 +210,7 @@ public class DataAccess  {
 		Date lastDayMonthDate= UtilDate.lastDayMonth(date);
 				
 		
-		TypedQuery<Date> query = db.createQuery("SELECT DISTINCT r.date FROM Ride r WHERE r.from=?1 AND r.to=?2 AND r.date BETWEEN ?3 and ?4",Date.class);   
+		TypedQuery<Date> query = em.createQuery("SELECT DISTINCT r.date FROM Ride r WHERE r.from=?1 AND r.to=?2 AND r.date BETWEEN ?3 and ?4",Date.class);   
 		
 		query.setParameter(1, from);
 		query.setParameter(2, to);
@@ -203,29 +223,55 @@ public class DataAccess  {
 	 	return res;
 	}
 	
-
-public void open(){
-		
-		String fileName=c.getDbFilename();
-		if (c.isDatabaseLocal()) {
-			emf = Persistence.createEntityManagerFactory("objectdb:"+fileName);
-			db = emf.createEntityManager();
-		} else {
-			Map<String, String> properties = new HashMap<String, String>();
-			  properties.put("javax.persistence.jdbc.user", c.getUser());
-			  properties.put("javax.persistence.jdbc.password", c.getPassword());
-
-			  emf = Persistence.createEntityManagerFactory("objectdb://"+c.getDatabaseNode()+":"+c.getDatabasePort()+"/"+fileName, properties);
-			  db = emf.createEntityManager();
-    	   }
-		System.out.println("DataAccess opened => isDatabaseLocal: "+c.isDatabaseLocal());
-
-		
+	public Driver getDriverByEmail(String email) {
+		EntityManager em = JPAUtil.getEntityManager();
+		try {
+			return em.find(Driver.class, email);
+		}
+		catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			throw e;
+		} 
+		finally {
+			em.close();
+		}
 	}
-
-	public void close(){
-		db.close();
-		System.out.println("DataAcess closed");
+	
+	public Driver createDriver(String email, String name, String password) {
+		EntityManager em = JPAUtil.getEntityManager();
+		
+		try {
+			Driver existe = em.find(Driver.class, email);
+			
+			if(existe != null) {
+				return null;
+			}
+			
+			Driver d = new Driver();
+			d.setEmail(email);
+			d.setName(name);
+			d.setPassword(password);
+			d.setRides(new ArrayList<Ride>());
+			
+			em.getTransaction().begin();
+			em.persist(d);
+			em.getTransaction().commit();
+			
+			return d;
+		}
+		catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			throw e;
+		} 
+		finally {
+			em.close();
+		}
 	}
 	
 }
+	
+

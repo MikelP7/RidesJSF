@@ -107,9 +107,9 @@ public class QueryRidesBean implements Serializable {
 	
 	public void searchAvailableRides()	{
 		availableRides = bl.getRides(departCity, ArrivalCity, fecha);
-		System.out.println("from: " + departCity);
-		System.out.println("to: " + ArrivalCity);
-		System.out.println("date: " + fecha);
-		System.out.println(availableRides);
+//		System.out.println("from: " + departCity);
+//		System.out.println("to: " + ArrivalCity);
+//		System.out.println("date: " + fecha);
+//		System.out.println(availableRides);
 	}
 }

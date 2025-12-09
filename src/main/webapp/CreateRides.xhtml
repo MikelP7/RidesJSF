@@ -13,26 +13,39 @@ xmlns:p="http://primefaces.org/ui">
 			
 			<h:commandButton value="Back to menu" action="#{createRides.moveToMenu}" />
 			
-			<h:panelGrid columns="2" cellpadding="6" cellspacing="6" style="border-collapse:separate;">
+			<h:panelGrid columns="2">
 
 				<h:outputText value="Depart City:" />
-				<h:inputText id="deparCtity" value="#{createRide.departCity}" />
+				<h:inputText id="deparCity" value="#{createRides.departCity}" >
+					<f:validateLength minimum="1"/>
+				</h:inputText>
 		
 				<h:outputText value="Arrival City:" />
-				<h:inputText id="arrivalCity" value="#{createRide.arrivalCity}" />
+				<h:inputText id="arrivalCity" value="#{createRides.arrivalCity}" >
+					<f:validateLength minimum="1"/>
+				</h:inputText>
 				
 				<h:outputText value="Number Places:" />
-				<h:inputText id="nPlaces" value="#{createRide.arrivalCity}" />
+				<h:inputText id="nPlaces" value="#{createRides.nPlaces}" >
+					<f:validateLongRange minimum="1"/>
+					<f:ajax event="blur" render="mensajes" />
+				</h:inputText>
+
 		
 				<h:outputText value="Price:" />
-				<h:inputText id="Price" value="#{createRide.price}" />
+				<h:inputText id="Price" value="#{createRides.price}">
+					<f:validateLongRange minimum="1"/>
+					<f:ajax event="blur" render="mensajes" />
+				</h:inputText>
 		
 				<h:outputText value="Ride date:" />
 				<p:calendar id="fecha" value="#{createRides.fecha}" navigator="false" pattern="dd/MM/yyyy" mode="inline"/>
-		
-				<h:commandButton value="Create Ride"/>
 	
 		    </h:panelGrid>
+		    
+		    <h:commandButton value="Create Ride" action="#{createRides.createRide}"/>
+		    
+		    <h:messages id="mensajes" style="color:red" autoUpdate="true"/>
 		
 		</h:form>
 	</h:body>

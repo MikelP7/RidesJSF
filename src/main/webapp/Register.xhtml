@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://xmlns.jcp.org/jsf/html"
+xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<f:view>
+	<h:head><title>RidesJSF</title></h:head>
+	<h:outputStylesheet library="css" name="style.css" />
+	<h:body>
+		<h:form>
+			<h3>RidesJSF</h3>
+			<h4>Register</h4>
+			
+				<h:panelGrid columns="2">
+
+				<h:outputText value="Email" />
+				<h:inputText id="email" value="#{register.email}" >
+				</h:inputText>
+				
+				<h:outputText value="Name" />
+				<h:inputText id="name" value="#{register.name}" >
+				</h:inputText>
+		
+				<h:outputText value="Password" />
+				<h:inputSecret id="pass" value="#{register.password}">
+				</h:inputSecret>
+				
+				<h:outputText value="Repeat Password" />
+				<h:inputSecret id="rpass" value="#{register.rpassword}">
+				</h:inputSecret>
+	
+                <h:commandButton value="Register" action="#{register.comprobar}" />
+                <h:commandButton value="Back" action="#{register.moveToLogin}" />
+		    </h:panelGrid>
+		    
+		    <h:messages id="mensajes" style="color:red" autoUpdate="true"/>
+		
+		</h:form>
+	</h:body>
+	</f:view>
+</html>

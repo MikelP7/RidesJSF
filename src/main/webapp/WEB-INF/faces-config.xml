@@ -42,5 +42,35 @@
 	</navigation-case>
 </navigation-rule>
 
+<!-- Navigation rule para ir de Login a Menu -->
+<navigation-rule>
+	<display-name>Menu.xhtml</display-name>
+	<from-view-id>/Login.xhtml</from-view-id>
+	<navigation-case>
+		<from-outcome>me</from-outcome>
+		<to-view-id>/Menu.xhtml</to-view-id>
+	</navigation-case>
+</navigation-rule>
+
+<!-- Navigation rule para ir de Login a Register -->
+<navigation-rule>
+	<display-name>Register.xhtml</display-name>
+	<from-view-id>/Login.xhtml</from-view-id>
+	<navigation-case>
+		<from-outcome>re</from-outcome>
+		<to-view-id>/Register.xhtml</to-view-id>
+	</navigation-case>
+</navigation-rule>
+
+<!-- Navigation rule para ir de Register a Login -->
+<navigation-rule>
+	<display-name>Login.xhtml</display-name>
+	<from-view-id>/Register.xhtml</from-view-id>
+	<navigation-case>
+		<from-outcome>lo</from-outcome>
+		<to-view-id>/Login.xhtml</to-view-id>
+	</navigation-case>
+</navigation-rule>
+
 </faces-config>
 

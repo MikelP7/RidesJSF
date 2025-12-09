@@ -1,6 +1,7 @@
 package principal;
 import jakarta.persistence.EntityManager;
 import modelo.JPAUtil;
+import modelo.dataAccess.DataAccess;
 import modelo.dominio.Driver;
 import modelo.dominio.Ride;
 
@@ -58,11 +59,15 @@ public class CrearDrivers {
 	
 	public static void main(String[] args) {
 		CrearDrivers cd = new CrearDrivers();
+		DataAccess da = new DataAccess();
+		
 		System.out.println("Creación de Drivers:");
 		//cd.createAndStoreDriver("test1@gmail.com", "test1", new ArrayList<Ride>());
 		//cd.createAndStoreDriver("test2@gmail.com", "test2", new ArrayList<Ride>());
 		//cd.createAndStoreDriver("test3@gmail.com", "test3", new ArrayList<Ride>());
 		//cd.createAndStoreDriver("test4@gmail.com", "test4", new ArrayList<Ride>());
+		
+		da.createDriver("mikel@gmail.com", "Mikel Pallin", "111");
 		
 		System.out.println("Listado de Drivers:");
 		List<Driver> drivers = cd.listaDrivers();

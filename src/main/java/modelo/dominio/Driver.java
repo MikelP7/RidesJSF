@@ -19,6 +19,7 @@ public class Driver {
 	@Id 
 	private String email;
 	private String name; 
+	private String password;
 	
 	@OneToMany(mappedBy="driver", fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private List<Ride> rides = new ArrayList<Ride>();
@@ -42,9 +43,22 @@ public class Driver {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public String getPassword() {
+		return password;
+	}
 
-	
-	
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public List<Ride> getRides() {
+		return rides;
+	}
+
+
 	public String toString(){
 		return email+";"+name+rides;
 	}

@@ -74,6 +74,10 @@ public interface BLFacade  {
 	 * It is invoked only when the option "initialize" is declared in the tag dataBaseOpenMode of resources/config.xml file
 	 */	
 	@WebMethod public void initializeBD();
+	
+	@WebMethod public Driver getDriverByEmail(String email);
+	
+	@WebMethod public Driver createDriver(String email, String name, String password);
 
 	
 }

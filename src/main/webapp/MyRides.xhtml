@@ -9,30 +9,9 @@ xmlns:p="http://primefaces.org/ui">
 	<h:outputStylesheet library="css" name="style.css" />
 	<h:body>
 		<h:form id="form">
-			<h3>Query Rides</h3>
+			<h3>My Rides</h3>
 			
 			<h:commandButton value="Back to menu" action="#{queryRides.moveToMenu}" />
-			
-			<h:panelGrid columns="2">
-
-				<h:outputText value="Depart City:" />
-				<h:selectOneMenu id="DepartCity" value="#{queryRides.departCity}">
-					<f:selectItems value="#{queryRides.departCities}" />
-					<f:ajax listener="#{queryRides.handleDepartCitySelection}" render="ArrivalCity" />
-				</h:selectOneMenu>
-		
-				<h:outputText value="Arrival City:" />
-				<h:selectOneMenu id="ArrivalCity" value="#{queryRides.arrivalCity}">
-					<f:selectItems value="#{queryRides.arrivalCities}" />
-				</h:selectOneMenu>
-		
-		
-				<h:outputText value="Ride date:" />
-				<p:calendar id="fecha" value="#{queryRides.fecha}" navigator="false" pattern="dd/MM/yyyy" mode="inline"/>
-		
-				<h:commandButton value="Query Rides" action="#{queryRides.searchAvailableRides}" />
-	
-		    </h:panelGrid>
 		    
 		    <h:dataTable id="dataTable" value="#{queryRides.availableRides}" var="ride" rendered="#{not empty queryRides.availableRides}">
 					<h:column>
@@ -52,8 +31,8 @@ xmlns:p="http://primefaces.org/ui">
 		                #{ride.price}€
 		            </h:column>
 		            <h:column>
-						<f:facet name="header">Driver Name</f:facet>
-		                #{ride.driver.name}
+						<f:facet name="header">Date</f:facet>
+		                #{ride.driver.fecha}
 		            </h:column>
 				</h:dataTable>
 				

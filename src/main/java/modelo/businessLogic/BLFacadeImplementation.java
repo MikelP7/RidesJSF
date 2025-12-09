@@ -71,5 +71,15 @@ public class BLFacadeImplementation  implements BLFacade {
 	 public void initializeBD(){
 		dbManager.initializeDB();
 	}
+    
+    @WebMethod
+    public Driver getDriverByEmail(String email) {
+    	return dbManager.getDriverByEmail(email);
+    }
+    
+    @WebMethod 
+    public Driver createDriver(String email, String name, String password) {
+    	return dbManager.createDriver(email, name, password);
+    }
 }
 

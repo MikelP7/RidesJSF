@@ -30,7 +30,7 @@
 
 <!-- Configuración de bienvenida -->
 <welcome-file-list>
-	<welcome-file>Menu.xhtml</welcome-file>
+	<welcome-file>Login.xhtml</welcome-file>
 </welcome-file-list>
 </web-app>
 
