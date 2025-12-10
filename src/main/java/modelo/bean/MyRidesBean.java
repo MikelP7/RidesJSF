@@ -33,4 +33,8 @@ public class MyRidesBean implements Serializable {
 		this.rides = rides;
 	}
 	
+	public String moveToMenu() {
+		return "me";
+	}
+	
 }

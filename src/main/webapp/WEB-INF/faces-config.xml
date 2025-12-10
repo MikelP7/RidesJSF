@@ -72,13 +72,23 @@
 	</navigation-case>
 </navigation-rule>
 
-<!-- Navigation rule para ir de Menu a Myrides -->
+<!-- Navigation rule para ir de Menu a MyRides -->
 <navigation-rule>
 	<display-name>MyRides.xhtml</display-name>
 	<from-view-id>/Menu.xhtml</from-view-id>
 	<navigation-case>
 		<from-outcome>mr</from-outcome>
 		<to-view-id>/MyRides.xhtml</to-view-id>
+	</navigation-case>
+</navigation-rule>
+
+<!-- Navigation rule para ir de MyRides a Menu -->
+<navigation-rule>
+	<display-name>Menu.xhtml</display-name>
+	<from-view-id>/MyRides.xhtml</from-view-id>
+	<navigation-case>
+		<from-outcome>me</from-outcome>
+		<to-view-id>/Menu.xhtml</to-view-id>
 	</navigation-case>
 </navigation-rule>
 
