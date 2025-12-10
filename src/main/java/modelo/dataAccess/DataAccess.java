@@ -1,21 +1,15 @@
 package modelo.dataAccess;
 
-import java.io.File;
-import java.net.NoRouteToHostException;
-import java.text.ParseException;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
 
 import configuration.UtilDate;
 import exceptions.RideAlreadyExistException;
 import exceptions.RideMustBeLaterThanTodayException;
 import modelo.dominio.Ride;
-import modelo.exceptions.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import modelo.JPAUtil;
@@ -272,6 +266,28 @@ public class DataAccess  {
 		}
 	}
 	
+	public List<Ride> getRidesByEmail(String email){
+		EntityManager em = JPAUtil.getEntityManager();
+		
+		try {
+			Driver d = em.find(Driver.class, email);
+			
+			if(d == null) {
+				return null;
+			}
+			
+			return d.getRides();
+		}
+		catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			throw e;
+		} 
+		finally {
+			em.close();
+		}
+	}
 }
 	
 

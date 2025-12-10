@@ -5,14 +5,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.primefaces.event.SelectEvent;
 
 import modelo.businessLogic.*;
-import modelo.dataAccess.DataAccess;
+
 import modelo.dominio.Ride;
 import jakarta.enterprise.context.SessionScoped;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 
 @Named("queryRides")
@@ -92,9 +89,6 @@ public class QueryRidesBean implements Serializable {
 		return "me";
 	}
 	
-	public void onDateSelect(SelectEvent event) {
-		System.out.print(event.getObject());
-	}
 	
 	public void handleDepartCitySelection() {
 		if (departCity != null) {

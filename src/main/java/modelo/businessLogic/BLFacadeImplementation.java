@@ -1,12 +1,10 @@
 package modelo.businessLogic;
 import java.util.Date;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
-import modelo.businessLogic.BLFacade;
 import modelo.dataAccess.DataAccess;
 import modelo.dominio.*;
 import modelo.exceptions.RideAlreadyExistException;
@@ -16,7 +14,7 @@ import modelo.exceptions.RideMustBeLaterThanTodayException;
  * It implements the business logic as a web service.
  */
 @WebService(endpointInterface = "businessLogic.BLFacade")
-public class BLFacadeImplementation  implements BLFacade {
+public class BLFacadeImplementation implements BLFacade {
 	DataAccess dbManager;
 
 	public BLFacadeImplementation()  {		
@@ -80,6 +78,11 @@ public class BLFacadeImplementation  implements BLFacade {
     @WebMethod 
     public Driver createDriver(String email, String name, String password) {
     	return dbManager.createDriver(email, name, password);
+    }
+    
+    @WebMethod
+    public List<Ride> getRidesByEmail(String email){
+    	return dbManager.getRidesByEmail(email);
     }
 }
 

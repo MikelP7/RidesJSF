@@ -18,4 +18,8 @@ public class MenuBean implements Serializable {
 	public String moveToCreateRides() {
 		return "cr";
 	}
+	
+	public String moveToMyRides() {
+		return "mr";
+	}
 }

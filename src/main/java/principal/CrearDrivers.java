@@ -67,6 +67,8 @@ public class CrearDrivers {
 		//cd.createAndStoreDriver("test3@gmail.com", "test3", new ArrayList<Ride>());
 		//cd.createAndStoreDriver("test4@gmail.com", "test4", new ArrayList<Ride>());
 		
+		cd.createAndStoreDriver("testfinal@gmail.com", "test", new ArrayList<Ride>());
+		
 		da.createDriver("mikel@gmail.com", "Mikel Pallin", "111");
 		
 		System.out.println("Listado de Drivers:");

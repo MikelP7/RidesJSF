@@ -1,22 +1,15 @@
 package modelo.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
-import org.primefaces.event.SelectEvent;
 
 import modelo.businessLogic.*;
-import modelo.dataAccess.DataAccess;
-import modelo.dominio.Ride;
 import modelo.exceptions.RideAlreadyExistException;
 import modelo.exceptions.RideMustBeLaterThanTodayException;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
-import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.AjaxBehaviorEvent;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 @Named("createRides")
@@ -30,6 +23,9 @@ public class CreateRidesBean implements Serializable {
 	private Integer nPlaces;
 	private Float price;
 	private Date fecha;
+	
+	@Inject
+    private LoginBean lb;
 
 	BLFacade bl = new BLFacadeImplementation();
 	
@@ -94,7 +90,7 @@ public class CreateRidesBean implements Serializable {
 		}	
 		
 		try {
-				bl.createRide(departCity, ArrivalCity, fecha, nPlaces, price, "test1@gmail.com");
+				bl.createRide(departCity, ArrivalCity, fecha, nPlaces, price, lb.getEmail());
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Ride successfully created!"));
 		} 
 		catch (exceptions.RideAlreadyExistException e) {

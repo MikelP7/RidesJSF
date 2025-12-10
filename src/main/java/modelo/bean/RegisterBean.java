@@ -1,23 +1,13 @@
 package modelo.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
-import org.primefaces.event.SelectEvent;
 
 import modelo.businessLogic.*;
-import modelo.dataAccess.DataAccess;
 import modelo.dominio.Driver;
-import modelo.dominio.Ride;
-import modelo.exceptions.RideAlreadyExistException;
-import modelo.exceptions.RideMustBeLaterThanTodayException;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
-import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.inject.Named;
 
 @Named("register")
@@ -68,8 +58,13 @@ public class RegisterBean implements Serializable {
 
 	public String comprobar() {
 		
-		if (email.equals("")) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error: The passwords don't match"));
+		if (email.equals("") || password.equals("") || rpassword.equals("")) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error: The fields cannot be empty"));
+			return null;
+		}
+		
+		if(!email.contains("@") || !email.contains(".")) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error: The email is invalid"));
 			return null;
 		}
 		
@@ -85,7 +80,7 @@ public class RegisterBean implements Serializable {
 			return null;
 		}
 		
-		Driver d = bl.createDriver(email, name, password);
+		bl.createDriver(email, name, password);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Driver successfully registered!"));
 		return null;
 	}

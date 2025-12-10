@@ -11,9 +11,9 @@ xmlns:p="http://primefaces.org/ui">
 		<h:form id="form">
 			<h3>My Rides</h3>
 			
-			<h:commandButton value="Back to menu" action="#{queryRides.moveToMenu}" />
+			<h:commandButton value="Back to menu" action="#{myrides.moveToMenu}" />
 		    
-		    <h:dataTable id="dataTable" value="#{queryRides.availableRides}" var="ride" rendered="#{not empty queryRides.availableRides}">
+		    <h:dataTable id="dataTable" value="#{myrides.rides}" var="ride">
 					<h:column>
 						<f:facet name="header">From</f:facet>
 		                #{ride.from}
@@ -32,7 +32,7 @@ xmlns:p="http://primefaces.org/ui">
 		            </h:column>
 		            <h:column>
 						<f:facet name="header">Date</f:facet>
-		                #{ride.driver.fecha}
+		                #{ride.date}
 		            </h:column>
 				</h:dataTable>
 				
