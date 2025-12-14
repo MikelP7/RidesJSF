@@ -92,5 +92,25 @@
 	</navigation-case>
 </navigation-rule>
 
+<!-- Navigation rule para ir de Menu a RidesTo -->
+<navigation-rule>
+	<display-name>RidesTo.xhtml</display-name>
+	<from-view-id>/Menu.xhtml</from-view-id>
+	<navigation-case>
+		<from-outcome>rt</from-outcome>
+		<to-view-id>/RidesTo.xhtml</to-view-id>
+	</navigation-case>
+</navigation-rule>
+
+<!-- Navigation rule para ir de RidesTo a Menu-->
+<navigation-rule>
+	<display-name>Menu.xhtml</display-name>
+	<from-view-id>/RidesTo.xhtml</from-view-id>
+	<navigation-case>
+		<from-outcome>me</from-outcome>
+		<to-view-id>/Menu.xhtml</to-view-id>
+	</navigation-case>
+</navigation-rule>
+
 </faces-config>
 

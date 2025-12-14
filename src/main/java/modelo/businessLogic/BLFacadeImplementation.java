@@ -84,5 +84,15 @@ public class BLFacadeImplementation implements BLFacade {
     public List<Ride> getRidesByEmail(String email){
     	return dbManager.getRidesByEmail(email);
     }
+    
+    @WebMethod 
+    public List<Ride> GetRidesByDestination(String to){
+    	return dbManager.GetRidesByDestination(to);
+    }
+    
+    @WebMethod 
+    public List<String> getAllDestinations(){
+    	return dbManager.getAllDestinations();
+    }
 }
 

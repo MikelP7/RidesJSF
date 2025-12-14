@@ -9,32 +9,22 @@ xmlns:p="http://primefaces.org/ui">
 	<h:outputStylesheet library="css" name="style.css" />
 	<h:body>
 		<h:form id="form">
-			<h3>Query Rides</h3>
+			<h3>Ride to</h3>
 			
-			<h:commandButton value="Back to menu" action="#{queryRides.moveToMenu}" />
+			<h:commandButton value="Back to menu" action="#{ridesTo.moveToMenu}" />
 			
 			<h:panelGrid columns="2">
-
-				<h:outputText value="Depart City:" />
-				<h:selectOneMenu id="DepartCity" value="#{queryRides.departCity}">
-					<f:selectItems value="#{queryRides.departCities}" />
-					<f:ajax listener="#{queryRides.handleDepartCitySelection}" render="ArrivalCity" />
-				</h:selectOneMenu>
-		
+	
 				<h:outputText value="Arrival City:" />
-				<h:selectOneMenu id="ArrivalCity" value="#{queryRides.arrivalCity}">
-					<f:selectItems value="#{queryRides.arrivalCities}" />
+				<h:selectOneMenu id="ArrivalCity" value="#{ridesTo.arrivalCity}">
+					<f:selectItems value="#{ridesTo.arrivalCities}" />
 				</h:selectOneMenu>
 		
-		
-				<h:outputText value="Ride date:" />
-				<p:calendar id="fecha" value="#{queryRides.fecha}" navigator="false" pattern="dd/MM/yyyy" mode="inline"/>
-		
-				<h:commandButton value="Query Rides" action="#{queryRides.searchAvailableRides}" />
+				<h:commandButton value="Query Rides" action="#{ridesTo.searchAvailableRides}" />
 	
 		    </h:panelGrid>
 		    
-		    <h:dataTable id="dataTable" value="#{queryRides.availableRides}" var="ride" border="1" rendered="#{not empty queryRides.availableRides}">
+		    <h:dataTable id="dataTable" value="#{ridesTo.availableRides}" var="ride" border="1" rendered="#{not empty ridesTo.availableRides}">
 					<h:column>
 						<f:facet name="header">From</f:facet>
 		                #{ride.from}
@@ -44,6 +34,14 @@ xmlns:p="http://primefaces.org/ui">
 		                #{ride.to}
 		            </h:column>
 					<h:column>
+						<f:facet name="header">Date</f:facet>
+		                #{ride.date}
+		            </h:column>
+		            <h:column>
+						<f:facet name="header">Driver Name</f:facet>
+		                #{ride.driver.name}
+		            </h:column>
+		            <h:column>
 						<f:facet name="header">nPlaces</f:facet>
 		                #{ride.nPlaces}
 		            </h:column>
@@ -51,10 +49,7 @@ xmlns:p="http://primefaces.org/ui">
 						<f:facet name="header">Price</f:facet>
 		                #{ride.price}€
 		            </h:column>
-		            <h:column>
-						<f:facet name="header">Driver Name</f:facet>
-		                #{ride.driver.name}
-		            </h:column>
+
 				</h:dataTable>
 				
 		</h:form>

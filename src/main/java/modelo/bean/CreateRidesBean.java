@@ -89,6 +89,16 @@ public class CreateRidesBean implements Serializable {
 			return;
 		}	
 		
+		if(nPlaces <= 0) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error: Number of places must be greater than 0"));
+			return;
+		}	
+		
+		if(price <= 0) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error: Price must be greater than 0"));
+			return;
+		}	
+		
 		try {
 				bl.createRide(departCity, ArrivalCity, fecha, nPlaces, price, lb.getEmail());
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Ride successfully created!"));

@@ -18,7 +18,7 @@ public class Driver {
 	private String name; 
 	private String password;
 	
-	@OneToMany(mappedBy="driver", fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy="driver", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private List<Ride> rides = new ArrayList<Ride>();
 
 

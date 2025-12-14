@@ -37,6 +37,11 @@ public class LoginBean implements Serializable {
 	
 	public String comprobar() {
 		
+		if(email.equals("") || password.equals("")) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error: The fields cannot be empty"));
+			return null;
+		}
+		
 		if(!email.contains("@") || !email.contains(".")) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error: The email is invalid"));
 			return null;

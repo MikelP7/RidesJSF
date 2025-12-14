@@ -112,7 +112,7 @@ public class DataAccess  {
 			
 			List<Integer> result = em.createQuery("SELECT MAX(r.rideNumber) FROM Ride r", Integer.class).getResultList();
 			
-			if(!result.isEmpty()) {
+			if(result.get(0) != null) {
 				ride.setRideNumber(result.get(0)+1);
 			}
 			else {
@@ -277,6 +277,52 @@ public class DataAccess  {
 			}
 			
 			return d.getRides();
+		}
+		catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			throw e;
+		} 
+		finally {
+			em.close();
+		}
+	}
+	
+	
+	public List<Ride> GetRidesByDestination(String to){
+		EntityManager em = JPAUtil.getEntityManager();
+		
+		try {
+			List<Ride> res = new ArrayList<Ride>();	
+			TypedQuery<Ride> query = em.createQuery("SELECT r FROM Ride r WHERE r.to=?1",Ride.class);   
+			query.setParameter(1, to);
+			List<Ride> rides = query.getResultList();
+		 	
+			for (Ride ride:rides){
+		 		res.add(ride);
+			}
+		 	return res;
+		}
+		catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			throw e;
+		} 
+		finally {
+			em.close();
+		}
+	}
+	
+	public List<String> getAllDestinations() {
+		EntityManager em = JPAUtil.getEntityManager();
+		
+		try {
+			em.getTransaction().begin();
+			List<String> result = em.createQuery("SELECT DISTINCT r.to FROM Ride r ORDER BY r.to", String.class).getResultList();
+			em.getTransaction().commit();
+			return result;
 		}
 		catch (Exception e) {
 			if (em.getTransaction().isActive()) {

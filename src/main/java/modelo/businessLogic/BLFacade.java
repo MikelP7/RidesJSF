@@ -80,6 +80,10 @@ public interface BLFacade  {
 	@WebMethod public Driver createDriver(String email, String name, String password);
 	
 	@WebMethod public List<Ride> getRidesByEmail(String email);
+	
+	@WebMethod public List<Ride> GetRidesByDestination(String to);
+	
+	@WebMethod public List<String> getAllDestinations();
 
 	
 }
